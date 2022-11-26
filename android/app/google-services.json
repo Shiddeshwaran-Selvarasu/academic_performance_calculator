@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "302820889013",
+    "project_id": "academicperformancecalculator",
+    "storage_bucket": "academicperformancecalculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302820889013:android:5c2df6cb166370d91649fc",
+        "android_client_info": {
+          "package_name": "com.example.academin_performance_calculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302820889013-pprandqlg564o935obn7jngjrti0ek3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD98NqGsTPGDePsgeZG2GxvlJrSthxUMZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302820889013-pprandqlg564o935obn7jngjrti0ek3q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
