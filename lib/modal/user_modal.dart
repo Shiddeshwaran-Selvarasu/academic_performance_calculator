@@ -154,7 +154,7 @@ class Admin {
     return {
       'name': name,
       'email': email,
-      'teachers': teachers.toList(),
+      'tutors': teachers.toList(),
     };
   }
 }

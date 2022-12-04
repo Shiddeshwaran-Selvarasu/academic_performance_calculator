@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                         email.value.text, password.value.text)
                         .then((value) {
                       FirebaseFirestore.instance
-                          .collection('/users')
+                          .collection('/user')
                           .doc(email.value.text)
                           .get()
                           .then((value) {

@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final userStream = FirebaseFirestore.instance.collection('/users').doc(user!.email).snapshots();
+    final userStream = FirebaseFirestore.instance.collection('/user').doc(user!.email).snapshots();
     return StreamBuilder(
       stream: userStream,
       builder: (context, snapshot) {
