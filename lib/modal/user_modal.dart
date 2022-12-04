@@ -18,7 +18,7 @@ class Student {
         name: data['name'],
         email: data['email'],
         CGPA: data['CGPA']);
-    List<Map<String, dynamic>> semList = data['semester'];
+    List<dynamic> semList = data['semester'];
     for (var sem in semList) {
       student.addSem(Semester.fromJson(sem));
     }

@@ -16,11 +16,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser;
 
+  deleteUser(){
+    user?.delete();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userStream = FirebaseFirestore.instance.collection('/user').doc(user!.email).snapshots();
+    final userStream = FirebaseFirestore.instance.collection('/user').doc(user!.email);
     return StreamBuilder(
-      stream: userStream,
+      stream: userStream.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(

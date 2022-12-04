@@ -7,7 +7,7 @@ import '../utils/signinprovider.dart';
 import 'add_tutor.dart';
 
 class AdminPage extends StatefulWidget {
-  const AdminPage({required this.user,Key? key}) : super(key: key);
+  const AdminPage({required this.user, Key? key}) : super(key: key);
 
   final BasicUser user;
 
@@ -37,7 +37,7 @@ class _AdminPageState extends State<AdminPage> {
           ),
           actionsPadding: const EdgeInsets.all(5),
           contentPadding:
-          const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           content: const Text(
             "Are sure you want to log out?",
             style: TextStyle(fontSize: 17),
@@ -103,7 +103,7 @@ class _AdminPageState extends State<AdminPage> {
           ),
           actionsPadding: const EdgeInsets.all(5),
           contentPadding:
-          const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           content: Text(
             "Are sure you want to delete the teacher with email $tutor ?",
             style: const TextStyle(fontSize: 17),
@@ -192,34 +192,41 @@ class _AdminPageState extends State<AdminPage> {
             for (var ele in list) {
               students.add(ele.toString());
             }
-            return Scrollbar(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: ListView.builder(
-                  itemCount: students.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
-                      child: Card(
-                        elevation: 2,
-                        child: ListTile(
-                          title: Text(students.elementAt(index).toString()),
-                          trailing: IconButton(
-                            onPressed: () {
-                              showAlertDelete(
-                                  students.elementAt(index).toString(),
-                                  context);
-                            },
-                            icon: const Icon(Icons.delete),
-                          ),
-                        ),
+            return students.isNotEmpty
+                ? Scrollbar(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: ListView.builder(
+                        itemCount: students.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 5),
+                            child: Card(
+                              elevation: 2,
+                              shadowColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.2),
+                              color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+                              child: ListTile(
+                                title:
+                                    Text(students.elementAt(index).toString()),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    showAlertDelete(
+                                        students.elementAt(index).toString(),
+                                        context);
+                                  },
+                                  icon: const Icon(Icons.delete),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
-            );
+                    ),
+                  )
+                : const Center(
+                    child: Text('Click The \'+\' icon to add Tutors'),
+                  );
           }
 
           return const Center(

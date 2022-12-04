@@ -8,7 +8,7 @@ import '../utils/signinprovider.dart';
 import 'add_student.dart';
 
 class TutorPage extends StatefulWidget {
-  const TutorPage({Key? key,required this.user}) : super(key: key);
+  const TutorPage({Key? key, required this.user}) : super(key: key);
 
   final BasicUser user;
 
@@ -50,7 +50,7 @@ class _TutorPageState extends State<TutorPage> {
           ),
           actionsPadding: const EdgeInsets.all(5),
           contentPadding:
-          const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           content: const Text(
             "Are sure you want to log out?",
             style: TextStyle(fontSize: 17),
@@ -119,7 +119,7 @@ class _TutorPageState extends State<TutorPage> {
           ),
           actionsPadding: const EdgeInsets.all(5),
           contentPadding:
-          const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           content: Text(
             "Are sure you want to delete the student with email $student ?",
             style: const TextStyle(fontSize: 17),
@@ -147,7 +147,9 @@ class _TutorPageState extends State<TutorPage> {
                     FirebaseFirestore.instance
                         .collection('/tutor')
                         .doc(widget.user.email)
-                        .collection('/students').doc(student).delete();
+                        .collection('/students')
+                        .doc(student)
+                        .delete();
                     Navigator.pop(context);
                   },
                   child: const Text(
@@ -170,7 +172,11 @@ class _TutorPageState extends State<TutorPage> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EmailSignIn>(context, listen: false);
-    final studentList = FirebaseFirestore.instance.collection('/tutor').doc('/${widget.user.email}').collection('/students').snapshots();
+    final studentList = FirebaseFirestore.instance
+        .collection('/tutor')
+        .doc('/${widget.user.email}')
+        .collection('/students')
+        .snapshots();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -196,33 +202,58 @@ class _TutorPageState extends State<TutorPage> {
             }
 
             if (snapshot.hasData) {
-              List<Student> students = snapshot.data!.docs.map((e) => Student.fromJson(e.data())).toList();
-              return Scrollbar(
-                child: ListView.builder(
-                  itemCount: students.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
-                      child: Card(
-                        elevation: 2,
-                        child: ListTile(
-                          title: Text(students[index].email),
-                          leading: IconButton(
-                            onPressed: () {
-                              showAlertDelete(
-                                students[index].email,
-                                context,
-                              );
-                            },
-                            icon: const Icon(Icons.delete),
-                          ),
-                        ),
+              List<Student> students = snapshot.data!.docs
+                  .map((e) => Student.fromJson(e.data()))
+                  .toList();
+              return students.isNotEmpty
+                  ? Scrollbar(
+                      child: ListView.builder(
+                        itemCount: students.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 5,
+                            ),
+                            child: Card(
+                              elevation: 2.5,
+                              shadowColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.2),
+                              color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+                              child: ListTile(
+                                title: Text(students[index].name),
+                                subtitle: Text(students[index].email),
+
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        showAlertDelete(
+                                          students[index].email,
+                                          context,
+                                        );
+                                      },
+                                      icon: const Icon(Icons.delete),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+
+                                      },
+                                      icon: const Icon(Icons.edit),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
+                    )
+                  : const Center(
+                      child: Text('Click The \'+\' icon to add Students'),
                     );
-                  },
-                ),
-              );
             }
 
             return const Center(
